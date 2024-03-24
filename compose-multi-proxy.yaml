@@ -12,10 +12,19 @@ services:
     image: nginx:latest
     volumes:
       - ./conf/reverse-proxy-1/nginx.conf:/etc/nginx/nginx.conf
-      - ./conf/reverse-proxy-1/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./conf/reverse-proxy-1/conf.d/default-multi-reverse-proxy.conf:/etc/nginx/conf.d/default.conf
     networks:
       internal:
         ipv4_address: 172.20.0.3
+
+  reverse-proxy-2:
+    image: nginx:latest
+    volumes:
+      - ./conf/reverse-proxy-2/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/reverse-proxy-2/conf.d:/etc/nginx/conf.d
+    networks:
+      internal:
+        ipv4_address: 172.20.0.4
 
   backend:
     image: nginx:latest
